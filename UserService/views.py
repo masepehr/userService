@@ -1,6 +1,8 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
-from .forms import signUpForm
+from django.db import transaction
+
+from .forms import *
 from django.shortcuts import render, redirect
 
 
@@ -10,8 +12,12 @@ def signup(request):
     if request.method=='POST':
         # form=UserCreationForm(request.POST)
         form=signUpForm(request.POST)
-        if form.is_valid():
-            form.save()
+
+        if form.is_valid() :
+            user=form.save()
+            user.refresh_from_db()
+            user.profile.birthdate=form.cleaned_data['birthdate']
+            user.save()
             username=form.cleaned_data['username']
             password=form.cleaned_data['password1']
             user=authenticate(username=username,password=password)
@@ -21,7 +27,6 @@ def signup(request):
 
     else:
         form=signUpForm()
-        # form=UserCreationForm()
     return render(request,'signup.html',{'form':form})
 
 

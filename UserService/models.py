@@ -6,7 +6,7 @@ from django.db import models
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    birthdate = models.DateField()
+    birthdate = models.DateField(null=True)
 
 
 class Adress(models.Model):

@@ -1,13 +1,10 @@
 {% extends '_base.html' %}
 
 {% block content %}
-  <h2>Sign up</h2>
+<h2 xmlns="http://www.w3.org/1999/html">Sign up</h2>
   <form method="post">
     {% csrf_token %}
     {% for field in form %}
-
-
-
       <p>
         {{ field.label_tag }}<br>
         {{ field }}
@@ -19,10 +16,8 @@
           <p style="color: red">{{ error }}</p>
         {% endfor %}
       </p>
-
-
-
     {% endfor %}
+   {% csrf_token %}
     <button type="submit">Sign up</button>
   </form>
 {% endblock %}
