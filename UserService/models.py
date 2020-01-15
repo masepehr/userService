@@ -10,6 +10,7 @@ class Profile(models.Model):
 
 
 class Adress(models.Model):
+
     ostan_choices=(
         ('teh','تهران'),
         ('shiraz','شیراز'),
@@ -23,7 +24,8 @@ class Adress(models.Model):
     code_posti=models.CharField(max_length=100,null=False,blank=False)
     phone_number=models.CharField(max_length=11,null=False,blank=False)
     home_phone_number=models.CharField(max_length=11,null=True,blank=True)
-    profile=models.ForeignKey(Profile,on_delete=models.CASCADE)
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+
 
 
 

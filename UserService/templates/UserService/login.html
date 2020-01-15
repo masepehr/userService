@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends '_base.html' %}
 
-</body>
-</html>
+<h2>login</h2>
+{% block content %}
+    <form method= "post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type= "submit">login</button>
+    </form>
+{% endblock content %}
+

@@ -1,7 +1,105 @@
 {% extends '_base.html' %}
 
 {% block content %}
-<p>
 
-</p>
+<form method="post" style="direction: rtl">
+    {% csrf_token %}
+
+    <fieldset class="form-group bg-light p-4">
+        <legend class="col-form-label col-sm-2 pt-0">مشخصات فردی</legend>
+
+
+        <div class="row text-right">
+            <label class="p-2 col-1">نام کاربری</label>
+
+            <input disabled="True" value="{{ user.username }}"/>
+        </div>
+        <br>
+        <div class="row text-right">
+            <label class="p-2 col-1">نام </label>
+
+            <input value="{{ user.first_name }}"/>
+        </div>
+        <br>
+        <div class="row text-right">
+            <label class="p-2 col-1">نام خانوادگی </label>
+
+            <input value="{{ user.last_name }}"/>
+        </div>
+        <br>
+        <div class="row text-right ">
+            <label class="p-2 col-1">ایمیل </label>
+
+            <input type="email" value="{{ user.email }}"/>
+        </div>
+        <br>
+        <div class="row text-right ">
+            <label class="p-2 col-1">تاریخ تولد </label>
+
+            <input type="date" value="{{ user.birthdate }}" />
+        </div>
+        <br>
+
+    </fieldset>
+
+    <button type="submit" class="rounded btn-dark" name="update_profile"> update profile</button>
+</form>
+
+<form method="post" style="direction:rtl " >
+    <input  type="submit" name="addr_add" value="افزودن آدرس جدید +" >
+
+     <fieldset class="form-group bg-light p-4">
+         {% if adresses %}
+        <legend class="col-form-label col-sm-2 pt-0">آدرس ها</legend>
+         {% endif%}
+
+    {% csrf_token %}
+    {% for addr in adresses %}
+
+
+        <div class=" bg-light p-4 text-right  ">
+
+        <div class="row text-right">
+            <label class=" col-1">آدرس </label>
+
+            <div>
+                استان
+        {{ addr.get_ostan_display }}
+        -
+        {{ addr.adress_detail }}
+        -
+        پلاک
+        {{ addr.pelak }}
+            </div>
+        </div>
+        <div class="row text-right">
+            <label class=" col-1">کد پستی  </label>
+                {{ addr.code_posti }}
+            <div>
+
+            </div>
+        </div>
+            <div class="row text-right">
+            <label class=" col-1">تلفن  </label>
+                {{ addr.phone_number }}
+                {% if addr.home_phone_number %}
+                    -{{ addr.home_phone_number }}
+                {% endif%}
+            <div>
+
+            </div>
+        </div>
+    </div>
+
+         <a class="btn" href="{%  url 'addressedit' addr.id  %}">
+             <input type="button"  value="ویرایش" >
+
+         </a>
+         <input type="submit" name="delete_{{ addr.id }}" value="حذف" >
+
+    {% endfor %}
+     </fieldset>
+
+</form>
+
 {% endblock %}

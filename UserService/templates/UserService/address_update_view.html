@@ -7,7 +7,9 @@
             <label class=" col-1">استان </label>
                 <select name="ostan_select" selected="selected" >
                     {% for key,value in ostans.items %}
-                        <option value={{ key }}>{{ value }}</option>
+                        <option
+
+                                {% if address.ostan == key %} selected="selected"{% endif %} value={{ key }}>{{ value }}</option>
                     {% endfor %}
                 </select>
             <div>
@@ -16,37 +18,38 @@
         </div>
         <div class="row text-right">
             <label class=" col-1">جزییات ادرس </label>
-                <input type="text" name="address_detail" required="True">
+                <input type="text" name="address_detail" required="True" value="{{ address.adress_detail }}">
+
             <div>
 
             </div>
         </div>
         <div class="row text-right">
             <label class=" col-1">پلاک  </label>
-                <input type="text" name="pelak" required="True">
+                <input type="text" name="pelak" required="True" value="{{ address.pelak }}">
             <div>
 
             </div>
         </div>
         <div class="row text-right">
             <label class=" col-1">کد پستی  </label>
-                <input type="text" name="code_posti" required="True">
+                <input type="text" name="code_posti" required="True" value="{{ address.code_posti }}">
         </div>
 
         <div class="row text-right">
         <label class=" col-1">تلفن  </label>
-            <input type="text" name="phone_number" required="True">
+            <input type="text" name="phone_number" required="True" value="{{ address.phone_number }}">
 
 
         </div>
         <div class="row text-right">
                 <label class=" col-1">تلفن ثابت </label>
-                  <input type="text" name="home_phone_number" >
+                  <input type="text" name="home_phone_number"  value="{{ address.home_phone_number }}">
 
 
         </div>
 
-                <input type="submit" value="افزودن ">
+                <input type="submit" value="ثبت ">
             </form>
     </div>
 {% endblock %}
