@@ -13,27 +13,45 @@ from .models import Adress
 
 
 def home(request):
-    return render(request,'UserService/index.html')
-def signup(request):
-    if request.method=='POST':
-        # form=UserCreationForm(request.POST)
-        form=signUpForm(request.POST)
+    return render(request,'index.html')
+# def signup(request):
+#     if request.method=='POST':
+#         # form=UserCreationForm(request.POST)
+#         form=signUpForm(request.POST)
+#
+#         if form.is_valid() :
+#             user=form.save()
+#             user.refresh_from_db()
+#             user.profile.birthdate=form.cleaned_data['birthdate']
+#             user.save()
+#             username=form.cleaned_data['username']
+#             password=form.cleaned_data['password1']
+#             user=authenticate(username=username,password=password)
+#             login(request=request,user=user)
+#             return redirect('profile')
+#
+#
+#     else:
+#         form=signUpForm()
+#     return render(request,'UserService/signup.html',{'form':form})
+class signup(View):
+    def post(self,request):
+        form = signUpForm(request.POST)
 
-        if form.is_valid() :
-            user=form.save()
+        if form.is_valid():
+            user = form.save()
             user.refresh_from_db()
-            user.profile.birthdate=form.cleaned_data['birthdate']
+            user.profile.birthdate = form.cleaned_data['birthdate']
             user.save()
-            username=form.cleaned_data['username']
-            password=form.cleaned_data['password1']
-            user=authenticate(username=username,password=password)
-            login(request=request,user=user)
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = authenticate(username=username, password=password)
+            login(request=request, user=user)
             return redirect('profile')
+    def get(self,request):
+        form = signUpForm()
+        return render(request, 'UserService/signup.html', {'form': form})
 
-
-    else:
-        form=signUpForm()
-    return render(request,'UserService/signup.html',{'form':form})
 
 
 class profileView(LoginRequiredMixin,View):
